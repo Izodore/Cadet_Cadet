@@ -1,4 +1,4 @@
-﻿#pragma warning disable 0649
+﻿//#pragma warning disable 0649
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "New Conversation", menuName ="Dialogue/New Conversation")]

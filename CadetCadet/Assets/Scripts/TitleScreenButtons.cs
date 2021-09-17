@@ -9,11 +9,11 @@ using UnityEngine.SceneManagement;
 //robust class designed for the title screen. 
 public class TitleScreenButtons : MonoBehaviour
 {
-    private int x;
+    //private int x;
     // Start is called before the first frame update
     void Start()
     {
-        x = 0;
+        //x = 0;
     }
 
     public void SceneChange(int x)

@@ -15,6 +15,7 @@ public class DialogueManager : MonoBehaviour
     private Animator anim;
     private Coroutine typing;
 
+    //Intialization
     private void Awake()
     {
         if(instance == null)
@@ -30,27 +31,34 @@ public class DialogueManager : MonoBehaviour
 
     public static void StartConnversation(Conversation convo)
     {
-        instance.anim.SetBool("isOpen", true);
+        instance.anim.SetBool("isOpen", true); //Open window
+
+        //Intialize conversation
         instance.currentIndex = 0;
         instance.currentConvo = convo;
         instance.speakerName.text = "";
         instance.dialogue.text = "";
         instance.navButtonText.text = "->";
 
+        //First line of dialogue read
         instance.ReadNext();
     }
 
     public void ReadNext()
     {
+        //Close dialogue window
         if (currentIndex > currentConvo.GetLength()) 
         {
             instance.anim.SetBool("isOpen", false);
             return; 
         }
+
         speakerName.text = currentConvo.GetLineByIndex(currentIndex).speaker.GetName;
+
         //dialogue.text = |Now in a coroutine
         typing = instance.StartCoroutine(TypeText(currentConvo.GetLineByIndex(currentIndex).dialogue));
 
+        //Prevent dialogue being smashed together when the user skips portions via the nav button
         if(typing == null)
         {
             typing = instance.StartCoroutine(TypeText(currentConvo.GetLineByIndex(currentIndex).dialogue));
@@ -67,10 +75,11 @@ public class DialogueManager : MonoBehaviour
 
         if(currentIndex > currentConvo.GetLength())
         {
-            navButtonText.text = "X"; //End conversation
+            navButtonText.text = "X"; //End conversation icon
         }
     }
 
+    //Corutine that allows the char by char display of dialogue lines
     private IEnumerator TypeText(string text)
     {
         dialogue.text = "";
